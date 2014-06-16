@@ -1,0 +1,448 @@
+import java.awt.Container;
+import java.awt.GridLayout;
+import java.awt.TextField;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
+import javax.swing.*;
+
+import com.sun.corba.se.spi.orb.Operation;
+
+public class Tester 
+{
+	
+	   public static void Calculator(Container container) 
+	   {
+		   final float[] anArray1;
+		   anArray1 = new float[1];
+		   
+		   final float[] anArray2;
+		   anArray2 = new float[1];
+		   
+		   final String[] anOperator;
+		   anOperator = new String[1];
+		   
+		   container.setLayout(new BoxLayout(container, BoxLayout.X_AXIS));
+//=================CREATE BOXES==============================
+		   Box box1 = Box.createHorizontalBox();
+		   Box box2 = Box.createVerticalBox();
+		   Box box3 = Box.createVerticalBox();
+		   Box box4 = Box.createVerticalBox();
+		   Box box5 = Box.createVerticalBox();
+		   Box box6 = Box.createVerticalBox();
+		   Box box7 = Box.createVerticalBox();
+		   Box box8 = Box.createVerticalBox();
+
+//=================MULTIPLICATION BUTTONS===================
+		   JButton add = new JButton("+");
+		   JButton sub = new JButton("- ");
+		   JButton mul = new JButton("* ");
+		   JButton div = new JButton(" / ");
+		   JButton mod = new JButton("%");
+		   JButton clear = new JButton("C");
+		   JButton equals = new JButton("= ");
+		   JButton decimal = new JButton(" . ");
+		   
+//==================NUMBER BUTTONS===========================
+		   JButton one = new JButton("1");
+		   JButton two = new JButton("2");
+		   JButton three = new JButton("3");
+		   JButton four = new JButton("4");
+		   JButton five = new JButton("5");
+		   JButton six = new JButton("6");
+		   JButton seven = new JButton("7");
+		   JButton eight = new JButton("8");
+		   JButton nine = new JButton("9");
+		   JButton zero = new JButton("0 ");
+		   
+//================Text Window=================================
+		   final JTextField tf = new JTextField(10);
+		  // tf.setEditable(false);
+		   //final JTextArea ta = new JTextArea(10, 10);
+
+//=================ADD BUTTONS and Text Window TO CONTAINER====================
+		   box6.add(add);
+		   box6.add(sub);
+		   box6.add(mul);
+		   container.add(box6);
+
+		   box7.add(div);
+		   box7.add(mod);
+		   box7.add(equals);
+		   container.add(box7);
+		   
+		   box5.add(tf);
+		   container.add(box5);
+		   
+		   box2.add(seven);
+		   box2.add(four);
+		   box2.add(one);
+		   container.add(box2);
+		   
+		   box3.add(eight);
+		   box3.add(five);
+		   box3.add(two);
+		   container.add(box3);
+		   
+		   box4.add(nine);
+		   box4.add(six);
+		   box4.add(three);
+		   container.add(box4);
+
+		   box8.add(clear);
+		   box8.add(decimal);
+		   box8.add(zero);
+		   container.add(box8);
+		   
+
+//================ACTION LISTENERS=============================
+		   //========Multiplication Buttons===========
+		   
+		   
+		   add.setActionCommand("+");
+		   add.addActionListener(new ActionListener()
+		   {
+			   public void actionPerformed(ActionEvent ae)
+			   {
+				   final String num;
+				   num = "+";
+				   tf.setText(tf.getText() + num);
+				   anOperator[0] = "+";
+			   }
+			   
+		   });
+		   sub.setActionCommand("-");
+		   sub.addActionListener(new ActionListener()
+		   {
+			   public void actionPerformed(ActionEvent ae)
+			   {
+				   final String num;
+				   num = "-";
+				   tf.setText(tf.getText() + num);
+				   anOperator[0] = "-";
+			   }
+			   
+		   });
+		   
+		   mul.addActionListener(new ActionListener()
+		   {
+			   public void actionPerformed(ActionEvent ae)
+			   {
+				   final String num;
+				   num = "*";
+				   tf.setText(tf.getText() + num);
+				   anOperator[0] = "*";
+			   }
+			   
+		   });
+		   
+		   div.addActionListener(new ActionListener()
+		   {
+			   public void actionPerformed(ActionEvent ae)
+			   {
+				   final String num;
+				   num = "/";
+				   tf.setText(tf.getText() + num);
+				   anOperator[0] = "/";
+			   }
+			   
+		   });
+		   
+		   mod.addActionListener(new ActionListener()
+		   {
+			   public void actionPerformed(ActionEvent ae)
+			   {
+				   final String num;
+				   num = "%";
+				   tf.setText(tf.getText() + num);
+				   anOperator[0] = "%";
+			   }
+			   
+		   });
+		   
+		   decimal.addActionListener(new ActionListener()
+		   {
+			   public void actionPerformed(ActionEvent ae)
+			   {
+				   final String num;
+				   num = ".";
+				   tf.setText(tf.getText() + num);
+			   }
+			   
+		   });
+		   
+		   clear.addActionListener(new ActionListener()
+		   {
+			   public void actionPerformed(ActionEvent ae)
+			   {
+				   tf.setText("");
+			   }
+			   
+		   });
+		   
+		   equals.setActionCommand("=");
+		   equals.addActionListener(new ActionListener()
+		   {
+			   public void actionPerformed(ActionEvent ae)
+			   {
+				   final String num;
+				   num = "=";
+				   float addOp = anArray1[0] + anArray2[0];
+				   float subOp = anArray1[0] - anArray2[0];
+				   float mulOp = anArray1[0] * anArray2[0];
+				   float divOp = anArray1[0] / anArray2[0];
+				   float modOp = anArray1[0] % anArray2[0];
+
+				   
+				   if(anOperator[0].contains("+"))
+				   {
+					   tf.setText(tf.getText() + num + addOp);
+				   }
+				   else if(anOperator[0].contains("-"))
+				   {
+					   tf.setText(tf.getText() + num + subOp);
+				   }
+				   else if(anOperator[0].contains("*"))
+				   {
+					   tf.setText(tf.getText() + num + mulOp);
+				   }
+				   else if(anOperator[0].contains("/"))
+				   {
+					   tf.setText(tf.getText() + num + divOp);
+				   }
+				   else if(anOperator[0].contains("%"))
+				   {
+					   tf.setText(tf.getText() + num + modOp);
+				   }
+				   
+				
+				
+			   }
+			   
+		   });
+		   
+		   //============Number Buttons==================
+		   one.addActionListener(new ActionListener()
+		   {
+			   public void actionPerformed(ActionEvent ae)
+			   {
+				   final int num;
+				   num = 1;
+				   tf.setText(tf.getText() + num);
+				   if(anArray1[0] == 0)
+				   {
+					   anArray1[0] = 1;
+				   }
+				   else
+				   {
+					   anArray2[0] = 1;
+				   }
+			   }
+			   
+		   });   
+		   
+		   two.addActionListener(new ActionListener()
+		   {
+			   public void actionPerformed(ActionEvent ae)
+			   {
+				   final int num;
+				   num = 2;
+				   tf.setText(tf.getText() + num);
+				   if(anArray1[0] == 0)
+				   {
+					   anArray1[0] = 2;
+				   }
+				   else
+				   {
+					   anArray2[0] = 2;
+				   }
+
+			   }
+			   
+		   });   
+		   
+		   three.addActionListener(new ActionListener()
+		   {
+			   public void actionPerformed(ActionEvent ae)
+			   {
+				   final int num;
+				   num = 3;
+				   tf.setText(tf.getText() + num);
+				   if(anArray1[0] == 0)
+				   {
+					   anArray1[0] = 3;
+				   }
+				   else
+				   {
+					   anArray2[0] = 3;
+				   }
+			   }
+			   
+		   });   
+		   
+		   four.addActionListener(new ActionListener()
+		   {
+			   public void actionPerformed(ActionEvent ae)
+			   {
+				   final int num;
+				   num = 4;
+				   tf.setText(tf.getText() + num);
+				   if(anArray1[0] == 0)
+				   {
+					   anArray1[0] = 4;
+				   }
+				   else
+				   {
+					   anArray2[0] = 4;
+				   }
+			   }
+			   
+		   });   
+		   
+		   five.addActionListener(new ActionListener()
+		   {
+			   public void actionPerformed(ActionEvent ae)
+			   {
+				   final int num;
+				   num = 5;
+				   tf.setText(tf.getText() + num);
+				   if(anArray1[0] == 0)
+				   {
+					   anArray1[0] = 5;
+				   }
+				   else
+				   {
+					   anArray2[0] = 5;
+				   }
+			   }
+			   
+		   });   
+		   
+		   six.addActionListener(new ActionListener()
+		   {
+			   public void actionPerformed(ActionEvent ae)
+			   {
+				   final int num;
+				   num = 6;
+				   tf.setText(tf.getText() + num);
+				   if(anArray1[0] == 0)
+				   {
+					   anArray1[0] = 6;
+				   }
+				   else
+				   {
+					   anArray2[0] = 6;
+				   }
+			   }
+			   
+		   });   
+		   
+		   seven.addActionListener(new ActionListener()
+		   {
+			   public void actionPerformed(ActionEvent ae)
+			   {
+				   final int num;
+				   num = 7;
+				   tf.setText(tf.getText() + num);
+				   if(anArray1[0] == 0)
+				   {
+					   anArray1[0] = 7;
+				   }
+				   else
+				   {
+					   anArray2[0] = 7;
+				   }
+			   }
+			   
+		   });   
+		   
+		   eight.addActionListener(new ActionListener()
+		   {
+			   public void actionPerformed(ActionEvent ae)
+			   {
+				   final int num;
+				   num = 8;
+				   tf.setText(tf.getText() + num);
+				   if(anArray1[0] == 0)
+				   {
+					   anArray1[0] = 8;
+				   }
+				   else
+				   {
+					   anArray2[0] = 8;
+				   }
+			   }
+			   
+		   });   
+		   
+		   nine.addActionListener(new ActionListener()
+		   {
+			   public void actionPerformed(ActionEvent ae)
+			   {
+				   final int num;
+				   num = 9;
+				   tf.setText(tf.getText() + num);
+				   if(anArray1[0] == 0)
+				   {
+					   anArray1[0] = 9;
+				   }
+				   else
+				   {
+					   anArray2[0] = 9;
+				   }
+			   }
+			   
+		   });   
+		   
+		   zero.addActionListener(new ActionListener()
+		   {
+			   public void actionPerformed(ActionEvent ae)
+			   {
+				   final int num;
+				   num = 0;
+				   tf.setText(tf.getText() + num);
+				   if(anArray1[0] == 0)
+				   {
+					   anArray1[0] = 0;
+				   }
+				   else
+				   {
+					   anArray2[0] = 0;
+				   }
+			   }
+			   
+		   });   
+		   
+		  //==========End of Action Listeners==================== 
+	   }	
+	   
+
+	
+	   
+	   private static void createAndShowGUI() 
+	   {
+	        //Create and set up the window.
+	        JFrame frame = new JFrame("Calculator");
+	        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	        frame.setLayout(new GridLayout(1, 10));
+	        //Set up the content pane.
+	        Calculator(frame.getContentPane());
+	        frame.setResizable(false);
+	        frame.pack();
+	        frame.setVisible(true);
+	    }
+	   
+	   public static void main(String[] args) 
+	   {
+
+	        javax.swing.SwingUtilities.invokeLater(new Runnable() 
+	        {
+	            public void run() 
+	            {
+	                createAndShowGUI();
+	            }
+	        });
+}
+}
+
